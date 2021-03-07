@@ -4,8 +4,11 @@ package com.xiaofangmoon.web.mvc.user.repository;
 import com.xiaofangmoon.web.mvc.user.domain.User;
 import com.xiaofangmoon.web.mvc.user.function.ThrowableFunction;
 import com.xiaofangmoon.web.mvc.user.sql.DBConnectionManager;
+import lombok.Data;
 import org.apache.commons.lang3.ClassUtils;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -17,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+@Data
 public class DatabaseUserRepository implements UserRepository {
 
     private static Logger logger = Logger.getLogger(DatabaseUserRepository.class.getName());
@@ -32,7 +36,11 @@ public class DatabaseUserRepository implements UserRepository {
 
     public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
 
-    private final DBConnectionManager dbConnectionManager;
+    @Resource(name = "jdbc/UserPlatformDB")
+    private DataSource dataSource;
+
+    @Resource(name = "bean/DBConnectionManager")
+    private DBConnectionManager dbConnectionManager;
 
 
     /**
@@ -50,6 +58,9 @@ public class DatabaseUserRepository implements UserRepository {
         preparedStatementMethodMappings.put(String.class, "setString"); //
 
 
+    }
+
+    public DatabaseUserRepository() {
     }
 
     public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {
@@ -156,7 +167,7 @@ public class DatabaseUserRepository implements UserRepository {
      * @return
      */
     protected <T> Integer executeUpdate(String sql, ThrowableFunction<ResultSet, T> function,
-                                  Consumer<Throwable> exceptionHandler, Object... args) {
+                                        Consumer<Throwable> exceptionHandler, Object... args) {
         Connection connection = getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

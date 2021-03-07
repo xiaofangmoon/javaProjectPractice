@@ -1,38 +1,42 @@
 package com.xiaofangmoon.web.mvc.user.sql;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author xiaofang
  */
 public class DBConnectionManager {
 
-    private Connection connection;
+    private final Logger logger = Logger.getLogger(DBConnectionManager.class.getName());
 
-    public DBConnectionManager(Connection connection) {
-        this.connection = connection;
+    @Resource(name = "jdbc/UserPlatformDB")
+    private DataSource dataSource;
+
+    public DBConnectionManager() {
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
 
     public Connection getConnection() {
-        return this.connection;
+        // 依赖查找
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        }
+        if (connection != null) {
+            logger.log(Level.INFO, "获取 JNDI 数据库连接成功！");
+        }
+        return connection;
     }
 
-    public void releaseConnection() {
-        if (this.connection != null) {
-            try {
-                this.connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getCause());
-            }
-        }
-    }
 
     public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE users";
 
