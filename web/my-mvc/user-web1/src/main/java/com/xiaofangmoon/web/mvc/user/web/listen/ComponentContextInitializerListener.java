@@ -31,6 +31,7 @@ public class ComponentContextInitializerListener implements ServletContextListen
             Context envCtx = (Context) ctx.lookup("java:comp/env");
 
             DataSource ds = (DataSource) envCtx.lookup("jdbc/UserPlatformDB");
+            System.out.println(ds);
             //引用数据源
             ds.getConnection();
             System.out.println("数据库初始化成功");
@@ -42,6 +43,9 @@ public class ComponentContextInitializerListener implements ServletContextListen
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        ComponentContext instance = ComponentContext.getInstance();
+        instance.contextClose();
 
     }
+
 }

@@ -23,7 +23,7 @@ public class LoginController implements RestController {
     @GET
     @Path("/info")
     public User index(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-        ComponentContext componentContext = (ComponentContext) request.getServletContext().getAttribute(ComponentContext.CONTEXT_NAME);
+        ComponentContext componentContext = ComponentContext.getInstance();
         UserServiceImpl userService = componentContext.getComponent("bean/UserServices");
         return userService.getUserById(Long.valueOf(request.getParameter("id")));
     }
@@ -35,7 +35,7 @@ public class LoginController implements RestController {
         response.setContentType("text/html;charset=utf-8");
         response.setCharacterEncoding("utf-8");
 
-        ComponentContext componentContext = (ComponentContext) request.getServletContext().getAttribute(ComponentContext.CONTEXT_NAME);
+        ComponentContext componentContext = ComponentContext.getInstance();
         UserServiceImpl userService = componentContext.getComponent("bean/UserServices");
         Integer integer;
         try {

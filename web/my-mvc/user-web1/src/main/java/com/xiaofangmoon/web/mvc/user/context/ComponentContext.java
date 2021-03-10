@@ -82,7 +82,6 @@ public class ComponentContext {
             // TODO 实现销毁阶段 - {@link PreDestroy}
 //            processPreDestroy();
         });
-        test2();
 
     }
 
@@ -160,9 +159,28 @@ public class ComponentContext {
 
     }
 
-    private void processPreDestroy() {
-        // TODO
+    public void contextClose() {
+        componentsMap.forEach((key, component) -> {
+            componentsMap.remove(key);
+            // 实现销毁阶段
+            processPreDestroy(component, component.getClass());
+        });
+        close(this.envContext);
     }
+
+    private void processPreDestroy(Object component, Class<?> componentClass) {
+        Stream.of(componentClass.getMethods()).filter(method -> !Modifier.isStatic(method.getModifiers()) &&
+                method.getParameterCount() == 0 &&
+                method.isAnnotationPresent(PreDestroy.class)
+        ).forEach(method -> {
+            try {
+                method.invoke(component);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
     private void injectComponents(Object component, Class<?> componentClass) {
         Stream.of(componentClass.getDeclaredFields()).filter(field -> {

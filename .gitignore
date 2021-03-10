@@ -6,3 +6,7 @@ target
 web/simple-webapp
 web/jpa
 web/mybatis-demo
+
+
+# file
+batch.txt
