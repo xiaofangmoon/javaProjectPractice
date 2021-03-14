@@ -14,7 +14,7 @@ import java.util.ServiceLoader;
 public class TestDemo {
 
     @Test
-    public void testConn(){
+    public void testConn() {
         ServiceLoader<Driver> load = ServiceLoader.load(Driver.class);
         for (Driver driver : load) {
             System.out.println(driver);

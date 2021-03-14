@@ -44,7 +44,15 @@
 
     <Resource name="bean/Validator" auth="Container"
               type="com.xiaofangmoon.web.mvc.user.validator.bean.validation.DelegatingValidator"
-              factory="org.apache.naming.factory.BeanFactory" />
+              factory="org.apache.naming.factory.BeanFactory"/>
+
+    <Resource name="bean/val/Validator" auth="Container"
+              type="com.xiaofangmoon.web.mvc.user.validator.bean.validation.DelegatingValidator"
+              factory="org.apache.naming.factory.BeanFactory"/>
+
+    <Resource name="bean/Config" auth="Container"
+              type="com.xiaofangmoon.web.mvc.user.config.DelegatingConfig"
+              factory="org.apache.naming.factory.BeanFactory"/>
 
     <!--  缺少指定 interface 类型的属性
      目标注入的类型：javax.persistence.EntityManager
@@ -62,5 +70,7 @@
     <Resource name="bean/UserService" auth="Container"
               type="org.geektimes.projects.user.service.UserServiceImpl"
               factory="org.apache.naming.factory.BeanFactory" />-->
+
+    <Environment name="maxValue" value="hello JNDI" type="java.lang.String"/>
 
 </Context>

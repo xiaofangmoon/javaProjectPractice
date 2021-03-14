@@ -39,5 +39,10 @@ public class User {
 
     @Column(name = "phone")
     private String phone;
+
+
+    public void printHello() {
+        System.out.println(this.name);
+    }
 }
 

@@ -1,0 +1,2 @@
+com.xiaofangmoon.web.mvc.user.config.source.MyPropertiesConfigSource
+com.xiaofangmoon.web.mvc.user.config.source.MySystemConfigSource

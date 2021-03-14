@@ -1,3 +1,4 @@
 com.xiaofangmoon.web.mvc.user.controller.HelloWorldController
 com.xiaofangmoon.web.mvc.user.controller.LoginController
 com.xiaofangmoon.web.mvc.user.controller.LoginPageController
+com.xiaofangmoon.web.mvc.user.controller.ConfigController

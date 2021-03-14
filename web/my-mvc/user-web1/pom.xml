@@ -15,6 +15,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>8.5.64</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.xiaofangmoon.web</groupId>
             <artifactId>mvc-framework</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -28,12 +34,12 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
-       <!-- <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-catalina</artifactId>
-            <version>8.5.63</version>
-        </dependency>
--->
+        <!-- <dependency>
+             <groupId>org.apache.tomcat</groupId>
+             <artifactId>tomcat-catalina</artifactId>
+             <version>8.5.63</version>
+         </dependency>
+ -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -81,7 +87,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.4.3.Final</version>
         </dependency>
 
         <dependency>
@@ -100,6 +105,34 @@
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
             <version>1.7</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jdmk</groupId>
+            <artifactId>jmxtools</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-client-java</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
 
@@ -124,19 +157,9 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.el</groupId>
-                        <artifactId>javax.el-api</artifactId>
-                        <version>3.0.0</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.glassfish</groupId>
-                        <artifactId>javax.el</artifactId>
-                        <version>3.0.1-b11</version>
-                    </dependency>
-                </dependencies>
+                <configuration>
+                    <port>8086</port>
+                </configuration>
                 <executions>
                     <execution>
                         <id>tomcat-run</id>
