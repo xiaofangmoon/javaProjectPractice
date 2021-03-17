@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.xiaofangmoon.web.mvc.controller.Controller;
 import com.xiaofangmoon.web.mvc.controller.PageController;
 import com.xiaofangmoon.web.mvc.controller.RestController;
+import com.xiaofangmoon.web.mvc.management.servlet.ServletConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -19,6 +22,7 @@ import javax.ws.rs.Path;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
+import java.lang.management.ManagementFactory;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -47,6 +51,26 @@ public class FrontControllerServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         initHandleMethods();
+        initMBean();
+    }
+
+    private void initMBean() {
+        try {
+            super.init();
+            // TODO Auto-generated method stub
+            System.out.println("enter--init");
+//            MBeanServer server = MBeanServerFactory.createMBeanServer("xiaofang-domain");
+            MBeanServer server = ManagementFactory.getPlatformMBeanServer();
+            ObjectName configuration = null;
+            configuration = new ObjectName("com.xiaofangmoon.web.mvc.FrontControllerServlet:type=Superman");
+            server.registerMBean(new ServletConfiguration(this), configuration);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("exit--init");
+
+
     }
 
     private void initHandleMethods() {

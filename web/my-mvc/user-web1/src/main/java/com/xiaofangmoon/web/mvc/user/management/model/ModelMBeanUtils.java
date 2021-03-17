@@ -5,13 +5,14 @@ import javax.management.*;
 import javax.management.modelmbean.*;
 
 /**
- * Created by hidden on 2016/10/9.
+ * @author xiaofang
  */
 public class ModelMBeanUtils {
     private static final boolean READABLE = true;
     private static final boolean WRITABLE = true;
     private static final boolean BOOLEAN = true;
     private static final String STRING_CLASS = "java.lang.String";
+
     public static RequiredModelMBean createModelerMBean() {
         RequiredModelMBean model = null;
         try {
@@ -24,6 +25,7 @@ public class ModelMBeanUtils {
         }
         return model;
     }
+
     private static ModelMBeanInfo createModelMBeanInfo() {
         //
         //                        属性                                        //
@@ -46,7 +48,7 @@ public class ModelMBeanUtils {
         //                        方法                                        //
         //
         // 构造 getName操作描述符信息
-        Descriptor getStateDesc = new DescriptorSupport(new String[] {
+        Descriptor getStateDesc = new DescriptorSupport(new String[]{
                 "name=getName",
                 "descriptorType=operation",
                 "class=com.xiaofangmoon.web.mvc.user.management.model.Hello",
@@ -63,12 +65,12 @@ public class ModelMBeanUtils {
         );
 
         // 构造 setName操作描述符信息
-        Descriptor setStateDesc = new DescriptorSupport(new String[] {
+        Descriptor setStateDesc = new DescriptorSupport(new String[]{
                 "name=setName", "descriptorType=operation", "class=com.xiaofangmoon.web.mvc.user.management.model.Hello",
-                "role=operation" });
+                "role=operation"});
 
-        MBeanParameterInfo[] setStateParms = new MBeanParameterInfo[] { (new MBeanParameterInfo(
-                "name", "java.lang.String", "new name value")) };
+        MBeanParameterInfo[] setStateParms = new MBeanParameterInfo[]{(new MBeanParameterInfo(
+                "name", "java.lang.String", "new name value"))};
 
         ModelMBeanOperationInfo setName = new ModelMBeanOperationInfo(//
                 "setName", //
@@ -107,14 +109,14 @@ public class ModelMBeanUtils {
         ModelMBeanInfo mbeanInfo = new ModelMBeanInfoSupport(//
                 RequiredModelMBean.class.getName(), // MBean类
                 null, // 描述文字
-                new ModelMBeanAttributeInfo[] { // 所有的属性信息（数组）
-                        nameAttrInfo },//只有一个属性
+                new ModelMBeanAttributeInfo[]{ // 所有的属性信息（数组）
+                        nameAttrInfo},//只有一个属性
                 null, // 所有的构造函数信息
-                new ModelMBeanOperationInfo[] { // 所有的操作信息（数组）
+                new ModelMBeanOperationInfo[]{ // 所有的操作信息（数组）
                         getName,
                         setName,
                         print1Info,
-                        print2Info },//
+                        print2Info},//
                 null, // 所有的通知信息(本例无)
                 null//MBean描述
         );

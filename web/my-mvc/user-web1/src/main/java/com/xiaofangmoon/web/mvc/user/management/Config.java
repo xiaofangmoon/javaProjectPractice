@@ -11,14 +11,14 @@ import java.util.Set;
 public class Config {
 
     public static void main(String[] args) throws Exception {
-        J4pClient j4pClient = new J4pClient("http://localhost:8080/jolokia");
+        J4pClient j4pClient = new J4pClient("http://localhost:8086/jolokia");
 
         J4pReadRequest req = new J4pReadRequest("com.xiaofangmoon.web.mvc.FrontControllerServlet:type=Superman");
 
         J4pReadResponse resp = j4pClient.execute(req);
         Map<String, String> vals = resp.getValue();
-        Set<String> sset = vals.keySet();
-        Iterator<String> iter = sset.iterator();
+        Set<String> keySet = vals.keySet();
+        Iterator<String> iter = keySet.iterator();
         while (iter.hasNext()) {
             String key = iter.next();
             System.out.println(key);

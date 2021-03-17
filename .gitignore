@@ -10,3 +10,5 @@ web/mybatis-demo
 
 # file
 batch.txt
+document
+libs/jolokia-jvm-1.6.2-agent.jar
